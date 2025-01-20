@@ -1,37 +1,25 @@
 import { useState } from "react";
 
-const articles = [
-  {
-    id: 1,
-    text: "L'innovazione tecnologica sta cambiando il nostro modo di vivere quotidianamente.",
-  },
-  {
-    id: 2,
-    text: "I cambiamenti climatici sono una delle sfide globali più urgenti dei nostri tempi.",
-  },
-  {
-    id: 3,
-    text: "L'intelligenza artificiale sta trasformando l'industria e la società in modi senza precedenti.",
-  },
-];
-
 const list = [];
 
 const Form = () => {
   const [myList, setMyList] = useState(list);
-  const [newTask, setNewTask] = useState({ text: "" });
+  const [formData, setFormData] = useState({
+    text: "",
+    image: "",
+  });
 
   const handlerSubmit = (e) => {
     e.preventDefault();
-    setMyList([newTask, ...myList]);
+    setMyList([formData, ...myList]);
   };
 
   const handlerNewTask = (e) => {
-    const newTask = {
-      id: Date.now(),
-      text: e.target.value,
+    const formData = {
+      ...formData,
+      [e.target.name]: e.target.value,
     };
-    setNewTask(newTask);
+    setFormData(formData);
   };
 
   const handlerRemove = (id) => {
@@ -45,10 +33,24 @@ const Form = () => {
         <form action="#" onSubmit={handlerSubmit}>
           <div className="input-group">
             <input
+              name="text"
               type="text"
               className="form-control"
               placeholder="Scrivi titolo da aggiungere..."
-              value={newTask.text}
+              value={formData.text}
+              onChange={handlerNewTask}
+            />
+            <button className="btn btn-outline-secondary" type="submit">
+              Aggiungi
+            </button>
+          </div>
+          <div className="input-group my-3">
+            <input
+              name="image"
+              type="text"
+              className="form-control"
+              placeholder="Aggiungi immagine..."
+              value={formData.text}
               onChange={handlerNewTask}
             />
             <button className="btn btn-outline-secondary" type="submit">
