@@ -1,5 +1,20 @@
 import { useState } from "react";
 
+const articles = [
+  {
+    id: 1,
+    text: "L'innovazione tecnologica sta cambiando il nostro modo di vivere quotidianamente.",
+  },
+  {
+    id: 2,
+    text: "I cambiamenti climatici sono una delle sfide globali più urgenti dei nostri tempi.",
+  },
+  {
+    id: 3,
+    text: "L'intelligenza artificiale sta trasformando l'industria e la società in modi senza precedenti.",
+  },
+];
+
 const list = [];
 
 const Form = () => {
