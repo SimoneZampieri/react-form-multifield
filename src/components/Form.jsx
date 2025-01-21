@@ -1,25 +1,48 @@
 import { useState } from "react";
 
-const list = [];
+const categorie = ["Tecnologia", "Cucina", "Sport", "Viaggi", "Musica"];
+
+const tags = [
+  { id: 1, nome: "Innovazione" },
+  { id: 2, nome: "Ricette" },
+  { id: 3, nome: "Calcio" },
+  { id: 4, nome: "Avventura" },
+  { id: 5, nome: "Rock" },
+];
 
 const Form = () => {
-  const [myList, setMyList] = useState(list);
-  const [formData, setFormData] = useState({
-    text: "",
-    image: "",
-  });
-
-  const handlerSubmit = (e) => {
-    e.preventDefault();
-    setMyList([formData, ...myList]);
+  const initialFormData = {
+    id: "",
+    titolo: "",
+    categoria: "",
+    immagini: "",
+    tags: [],
+    stato: "",
   };
 
+  const [formData, setFormData] = useState({ initialFormData });
+  const [posts, setPosts] = useState([]);
+
+  const handleField = (e) => {
+    let value = e.target.value;
+
+    if (e.target.name === "categoria") {
+      value = categorie[e.target.value];
+    }
+    if (e.target.type === "checkbox") {
+      value = e.target.checked;
+    }
+    setFormData({
+      ...formData,
+      [e.target.name]: value,
+    });
+  };
   const handlerNewTask = (e) => {
-    const formData = {
+    const newArticle = {
       ...formData,
       [e.target.name]: e.target.value,
     };
-    setFormData(formData);
+    setFormData(newArticle);
   };
 
   const handlerRemove = (id) => {
@@ -33,45 +56,46 @@ const Form = () => {
         <form action="#" onSubmit={handlerSubmit}>
           <div className="input-group">
             <input
-              name="text"
+              name="titolo"
               type="text"
               className="form-control"
               placeholder="Scrivi titolo da aggiungere..."
-              value={formData.text}
+              value={formData.titolo}
               onChange={handlerNewTask}
             />
-            <button className="btn btn-outline-secondary" type="submit">
-              Aggiungi
-            </button>
           </div>
           <div className="input-group my-3">
             <input
-              name="image"
+              name="immagine"
               type="text"
               className="form-control"
               placeholder="Aggiungi immagine..."
-              value={formData.text}
+              value={formData.immagini}
               onChange={handlerNewTask}
             />
-            <button className="btn btn-outline-secondary" type="submit">
-              Aggiungi
-            </button>
           </div>
+          <button className="btn btn-outline-primary" type="submit">
+            Aggiungi
+          </button>
         </form>
       </div>
       <div className="container">
         <ul className="list-group">
           {myList.map((task) => (
-            <li
-              key={task.id}
-              className="list-group-item  d-flex justify-content-between"
-            >
-              {task.text}
-              <i
-                className="fa-solid fa-trash"
-                onClick={() => handlerRemove(task.id)}
-              ></i>
-            </li>
+            <div key={task.id} className="card">
+              <img
+                src={task.immagini}
+                className="card-img-top"
+                alt="Immagine"
+              ></img>
+              <div className="card-body">
+                <h5 className="card-title">{task.titolo}</h5>
+                <i
+                  className="fa-solid fa-trash-can"
+                  onClick={() => handlerRemove(task.id)}
+                ></i>
+              </div>
+            </div>
           ))}
         </ul>
       </div>
