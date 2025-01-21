@@ -37,6 +37,7 @@ const Form = () => {
       [e.target.name]: value,
     });
   };
+
   const handlerNewTask = (e) => {
     const newArticle = {
       ...formData,
