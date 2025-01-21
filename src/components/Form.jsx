@@ -149,8 +149,65 @@ const Form = () => {
                 </div>
               ))}
             </div>
-            <div className="form-check mb-3"></div>
+            <div className="form-check mb-3">
+              <input
+                type="checkbox"
+                className="form-check-input"
+                id="stato"
+                name="stato"
+                checked={formData.stato}
+                onChange={handleField}
+              />
+              <label htmlFor="stato" className="form-check-label">
+                Pubblicato
+              </label>
+            </div>
+            <button type="submit" className="btn btn-warning">
+              Aggiungi
+            </button>
           </form>
+        </div>
+        <div className="card p-4">
+          <h2 className="mb-3">Lista Post</h2>
+          {posts.length > 0 ? (
+            <table className="table table-striped">
+              <thead>
+                <tr>
+                  <th>Immagine</th>
+                  <th>Titolo</th>
+                  <th>Contenuto</th>
+                  <th>Categoria</th>
+                  <th>Tags</th>
+                  <th>Disponibile</th>
+                  <th>Azioni</th>
+                </tr>
+              </thead>
+              <tbody>
+                {posts.map((post) => (
+                  <tr key={post.id}>
+                    <td>
+                      <img src={post.immagini} alt={post.titolo} width="100" />
+                    </td>
+                    <td>{post.titolo}</td>
+                    <td>{post.didascalia}</td>
+                    <td>{post.categoria}</td>
+                    <td>{post.tags.join(", ")}</td>
+                    <td>{post.stato ? "Sì" : "No"}</td>
+                    <td>
+                      <button
+                        onClick={() => handleRemovePost(post.id)}
+                        className="btn btn-danger btn-sm"
+                      >
+                        <i className="fa-solid fa-trash-can"></i>
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <h3>Non sono presenti post</h3>
+          )}
         </div>
       </div>
     </>
