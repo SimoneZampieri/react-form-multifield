@@ -130,7 +130,26 @@ const Form = () => {
                 ))}
               </select>
             </div>
-            <div className="mb-3"></div>
+            <div className="mb-3">
+              <label className="form-label">
+                <h4>Tags</h4>
+              </label>
+              {tags.map((tag) => (
+                <div key={`tag${tag.id}`} className="form-check">
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    id={`tag${tag.id}`}
+                    value={tag.nome}
+                    onChange={handleTags}
+                  />
+                  <label className="form-check-label" htmlFor={`tag${tag.id}`}>
+                    {tag.nome}
+                  </label>
+                </div>
+              ))}
+            </div>
+            <div className="form-check mb-3"></div>
           </form>
         </div>
       </div>
