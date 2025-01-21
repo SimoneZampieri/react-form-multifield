@@ -15,6 +15,7 @@ const Form = () => {
     id: "",
     titolo: "",
     didascalia: "",
+    categoria: "",
     immagini: "",
     tags: [],
     stato: "",
@@ -114,6 +115,22 @@ const Form = () => {
                 onChange={handleField}
               ></textarea>
             </div>
+            <div className="mb-3">
+              <select
+                className="form-select"
+                onChange={handleField}
+                name="categoria"
+                defaultValue=""
+              >
+                <option selected>Scegli la categoria</option>
+                {categorie.map((categoria, index) => (
+                  <option key={index} value={index}>
+                    {categoria}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="mb-3"></div>
           </form>
         </div>
       </div>
