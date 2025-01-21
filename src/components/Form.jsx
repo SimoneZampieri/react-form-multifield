@@ -14,7 +14,7 @@ const Form = () => {
   const initialFormData = {
     id: "",
     titolo: "",
-    categoria: "",
+    didascalia: "",
     immagini: "",
     tags: [],
     stato: "",
@@ -69,7 +69,53 @@ const Form = () => {
   return (
     <>
       <div className="container my-5">
-        <div className="card p-3 mb-3">h3</div>
+        <div className="card p-3 mb-3">
+          <h3>Aggiungi un Post</h3>
+          <form onSubmit={handlerSubmit}>
+            <div className="mb-3">
+              <label htmlFor="titolo" className="form-label">
+                Titolo
+              </label>
+              <input
+                type="text"
+                id="titolo"
+                className="form-control"
+                placeholder="Titolo..."
+                name="titolo"
+                value={formData.titolo}
+                onChange={handleField}
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="immagini" className="form-label">
+                Foto
+              </label>
+              <input
+                type="text"
+                id="immagini"
+                className="form-control"
+                placeholder="Foto..."
+                name="immagini"
+                value={formData.immagini}
+                onChange={handleField}
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="didascalia" className="form-label">
+                Scrivi una didascalia
+              </label>
+              <textarea
+                id="didascalia"
+                className="form-control"
+                rows="5"
+                placeholder="Didascalia..."
+                name="didascalia"
+                value={formData.didascalia}
+                onChange={handleField}
+              ></textarea>
+            </div>
+          </form>
+        </div>
       </div>
     </>
   );
