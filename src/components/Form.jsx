@@ -38,67 +38,38 @@ const Form = () => {
     });
   };
 
-  const handlerNewTask = (e) => {
-    const newArticle = {
-      ...formData,
-      [e.target.name]: e.target.value,
-    };
-    setFormData(newArticle);
+  const handleTags = (e) => {
+    let { tags, ...others } = formData;
+
+    if (tags.included(e.target.value)) {
+      tags = tags.filter((tag) => tag !== e.target.value);
+    } else {
+      tags = [...tags, e.target.value];
+    }
+
+    setFormData({ tags, ...others });
   };
 
-  const handlerRemove = (id) => {
-    const newList = myList.filter((item) => item.id !== id);
-    setMyList(newList);
+  const handlerSubmit = (e) => {
+    e.preventDefault();
+    setPosts([
+      {
+        id: self.crypto.randomUUID(),
+        ...formData,
+      },
+      ...posts,
+    ]);
+  };
+
+  const handleRemovePost = (id) => {
+    console.log(id);
+    setPosts(posts.filter((post) => post.id !== id));
   };
 
   return (
     <>
       <div className="container my-5">
-        <form action="#" onSubmit={handlerSubmit}>
-          <div className="input-group">
-            <input
-              name="titolo"
-              type="text"
-              className="form-control"
-              placeholder="Scrivi titolo da aggiungere..."
-              value={formData.titolo}
-              onChange={handlerNewTask}
-            />
-          </div>
-          <div className="input-group my-3">
-            <input
-              name="immagine"
-              type="text"
-              className="form-control"
-              placeholder="Aggiungi immagine..."
-              value={formData.immagini}
-              onChange={handlerNewTask}
-            />
-          </div>
-          <button className="btn btn-outline-primary" type="submit">
-            Aggiungi
-          </button>
-        </form>
-      </div>
-      <div className="container">
-        <ul className="list-group">
-          {myList.map((task) => (
-            <div key={task.id} className="card">
-              <img
-                src={task.immagini}
-                className="card-img-top"
-                alt="Immagine"
-              ></img>
-              <div className="card-body">
-                <h5 className="card-title">{task.titolo}</h5>
-                <i
-                  className="fa-solid fa-trash-can"
-                  onClick={() => handlerRemove(task.id)}
-                ></i>
-              </div>
-            </div>
-          ))}
-        </ul>
+        <div className="card p-3 mb-3">h3</div>
       </div>
     </>
   );
